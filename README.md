@@ -1,6 +1,6 @@
-# 🎥 MovieApp
+# 🎥 What to watch today?
 
-**MovieApp** is a film browsing, searching, and management application built with **Next.js**, utilizing **Tailwind CSS** and **Material-UI**. It fetches movie data from **The Movie Database (TMDB API)** and supports various devices (mobile, tablet, desktop). Users can also manage their personal movie library.
+**What to watch today?** is a film browsing, searching, and management application built with **Next.js**, utilizing **Tailwind CSS** and **Material-UI**. It fetches movie data from **The Movie Database (TMDB API)** and supports various devices (mobile, tablet, desktop). Users can also manage their personal movie library.
 
 ---
 
