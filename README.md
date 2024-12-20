@@ -1,22 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎥 MovieApp
 
-## Getting Started
+**MovieApp** is a film browsing, searching, and management application built with **Next.js**, utilizing **Tailwind CSS** and **Material-UI**. It fetches movie data from **The Movie Database (TMDB API)** and supports various devices (mobile, tablet, desktop). Users can also manage their personal movie library.
 
-First, run the development server:
+---
+
+## 🛠️ Technologies
+
+- **Next.js** – React framework with SSR and ISR support.
+- **Tailwind CSS** – Utility-first CSS framework.
+- **Material-UI (MUI)** – React component library for building user interfaces.
+- **Firebase** – Authentication and real-time database for managing user data.
+- **TMDB API** – Source of movie data.
+- **TypeScript** – Ensures type safety and better code maintainability.
+
+---
+
+## 🚧 Development Setup
+
+### 1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+git clone https://github.com/OlgaPikulska/what-to-watch-today.git
+cd what-to-watch-today
+```
+
+### 2. Install dependencies using pnpm:
+
+```bash
+npm install -g pnpm
+pnpm install
+```
+
+### 3. Set up the TMDB API key in an .env.local file:
+
+1. Go to the [TMDB website](https://developer.themoviedb.org/reference/intro/getting-started).
+2. Generate your **API key**.
+3. Create a `.env.local` file in the project root and add your API key:
+
+```bash
+NEXT_PUBLIC_API_URL=https://api.themoviedb.org/3
+NEXT_PUBLIC_API_KEY=your_api_key
+```
+
+### 4. Start the development server:
+
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 5. Run tests:
+
+```bash
+pnpm test
+```
+
+### 6. Build for production:
+
+```bash
+pnpm build
+pnpm start
+```
+
+---
+
+## 📖 API Documentation
+
+- [Trending Movies API](https://developer.themoviedb.org/reference/trending-all) – Fetch today's trending movies.
+- [Search Movies API](https://developer.themoviedb.org/reference/search-movie) – Search movies by keyword.
+- [Movie Details API](https://developer.themoviedb.org/reference/movie-details) – Retrieve detailed movie information.
+- [Movie Trailers API](https://developer.themoviedb.org/reference/movie-videos) – Fetch movie trailers from YouTube.
+
+---
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
