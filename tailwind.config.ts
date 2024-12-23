@@ -11,6 +11,7 @@ export default {
 			colors: {
 				background: "var(--background)",
 				foreground: "var(--foreground)",
+				warning: "#f57c00",
 			},
 			backgroundImage: {
 				"header-desktop": "url(/header/header-home-desktop.jpg)",

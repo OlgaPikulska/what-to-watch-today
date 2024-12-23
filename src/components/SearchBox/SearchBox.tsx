@@ -1,30 +1,51 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
+import { useRouter } from "next/navigation";
 
 export const SearchBox: React.FC = () => {
+	const router = useRouter();
+	const [searchQuery, setSearchQuery] = useState("");
+
+	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const query = event.target.value;
+		setSearchQuery(query);
+
+		if (query.trim() !== "") {
+			router.push(`/?query=${query.trim()}`);
+		} else {
+			router.push(`/`);
+		}
+	};
+
 	return (
-		<div>
-			<TextField
-				id="standard-basic"
-				label="Search movies"
-				variant="standard"
-				color="warning"
-				sx={{
-					input: { color: "white" }, // Kolor tekstu
-					"& .MuiInputLabel-root": { color: "white" }, // Kolor etykiety
-					"& .MuiInput-underline:before": {
-						borderBottomColor: "white", // Kolor obwódki przed focus
-						transition: "none",
+		<TextField
+			label="Search movies"
+			variant="outlined"
+			color="warning"
+			value={searchQuery}
+			onChange={handleSearchChange}
+			sx={{
+				"& .MuiOutlinedInput-root": {
+					backgroundColor: "transparent",
+					color: "white",
+					"& .MuiOutlinedInput-notchedOutline": {
+						borderColor: "rgba(255, 255, 255, 0.8)",
 					},
-					"& .MuiInput-underline:hover:before": {
-						borderBottomColor: "white", // Kolor obwódki podczas hover
-						transition: "none",
+					"&:hover .MuiOutlinedInput-notchedOutline": {
+						borderColor: "white",
 					},
-					"& .MuiInput-underline:after": {
-						borderBottomColor: "warning", // Pomarańczowy kolor na focus
+					"&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+						borderColor: "warning.main",
 					},
-				}}
-			/>
-		</div>
+				},
+				"& .MuiInputLabel-root": {
+					color: "white",
+				},
+				"& .MuiInputLabel-root.Mui-focused": {
+					color: "warning.main",
+				},
+			}}
+		/>
 	);
 };

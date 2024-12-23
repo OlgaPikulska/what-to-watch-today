@@ -12,7 +12,7 @@ export const Navigation: React.FC = () => {
 			<Link
 				href="/"
 				className={`${
-					pathname === "/" ? "border-b-2 border-white font-bold" : ""
+					pathname === "/" ? "border-warning border-b-2 font-bold" : ""
 				} text-white hover:text-gray-300`}
 			>
 				Home
@@ -20,7 +20,7 @@ export const Navigation: React.FC = () => {
 			<Link
 				href="/library"
 				className={`${
-					pathname === "/library" ? "border-b-2 border-white font-bold" : ""
+					pathname === "/library" ? "border-warning border-b-2 font-bold" : ""
 				} text-white hover:text-gray-300`}
 			>
 				My Library
