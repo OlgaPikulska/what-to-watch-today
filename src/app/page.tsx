@@ -1,7 +1,5 @@
-interface Movie {
-	id: number;
-	title: string;
-}
+import { MovieCard } from "@/components/MovieCard/MovieCard";
+import { Movie } from "@/types";
 
 const Home = async ({ searchParams }: { searchParams: { query?: string } }) => {
 	const query = searchParams.query || "";
@@ -20,11 +18,10 @@ const Home = async ({ searchParams }: { searchParams: { query?: string } }) => {
 		console.error("Error fetching movies:", error);
 	}
 
+	console.log(trendingMovies);
 	return (
 		<div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4">
-			{trendingMovies.map((movie: Movie) => (
-				<div key={movie.id}>{movie.title}</div>
-			))}
+			<MovieCard movies={trendingMovies} />
 		</div>
 	);
 };
