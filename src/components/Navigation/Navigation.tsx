@@ -8,22 +8,23 @@ export const Navigation: React.FC = () => {
 	const pathname = usePathname();
 
 	return (
-		<nav className="flex space-x-6">
+		// <nav className="flex space-x-6">
+		<nav className="block">
 			<Link
 				href="/"
 				className={`${
-					pathname === "/" ? "border-warning border-b-2 font-bold" : ""
-				} text-white hover:text-gray-300`}
+					pathname === "/" ? "border-b-[3px] border-warning font-bold" : ""
+				} mr-6 inline-block text-xs uppercase text-white hover:text-gray-300`}
 			>
 				Home
 			</Link>
 			<Link
 				href="/library"
 				className={`${
-					pathname === "/library" ? "border-warning border-b-2 font-bold" : ""
-				} text-white hover:text-gray-300`}
+					pathname === "/library" ? "border-b-[3px] border-warning font-bold" : ""
+				} inline-block text-xs uppercase text-white hover:text-gray-300`}
 			>
-				My Library
+				My library
 			</Link>
 		</nav>
 	);
