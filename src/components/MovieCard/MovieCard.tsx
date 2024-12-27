@@ -25,7 +25,6 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies }) => {
 							<span className="mt-2 text-sm">No Poster</span>
 						</div>
 					)}
-
 					<p className="text mt-2 text-sm font-bold uppercase">{movie.title}</p>
 					<p className="text-warning">{movie.release_date.split("-")[0]}</p>
 				</div>

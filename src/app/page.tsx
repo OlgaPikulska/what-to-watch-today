@@ -1,8 +1,12 @@
 import { MovieCard } from "@/components/MovieCard/MovieCard";
 import { Movie } from "@/types";
+// import { useSearchParams } from "next/navigation";
 
-const Home = async ({ searchParams }: { searchParams: { query?: string } }) => {
-	const query = searchParams.query || "";
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+const Home = async ({ searchParams }: { searchParams: SearchParams }) => {
+	const params = await searchParams;
+	const query = params.query || "";
 	let trendingMovies: Movie[] = [];
 	const endpoint = query
 		? `${process.env.NEXT_PUBLIC_API_URL}/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&query=${query}`
@@ -18,7 +22,6 @@ const Home = async ({ searchParams }: { searchParams: { query?: string } }) => {
 		console.error("Error fetching movies:", error);
 	}
 
-	console.log(trendingMovies);
 	return (
 		<div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4">
 			<MovieCard movies={trendingMovies} />
