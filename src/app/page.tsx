@@ -23,7 +23,7 @@ const Home = async ({ searchParams }: { searchParams: SearchParams }) => {
 	}
 
 	return (
-		<div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4">
+		<div className="grid auto-cols-[200px] grid-cols-[repeat(auto-fill,_200px)] justify-center gap-4 p-4">
 			<MovieCard movies={trendingMovies} />
 		</div>
 	);

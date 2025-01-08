@@ -14,13 +14,14 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies }) => {
 				<div key={movie.id}>
 					{movie.poster_path ? (
 						<Image
-							src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+							src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
 							alt={`Poster of ${movie.title} movie`}
-							width={300}
-							height={398}
+							className="rounded-sm"
+							width={200}
+							height={300}
 						/>
 					) : (
-						<div className="flex h-[398px] w-[276px] flex-col items-center justify-center border border-gray-500 text-gray-500">
+						<div className="flex aspect-[200/300] w-full max-w-[200px] items-center justify-center rounded-sm border border-gray-500 text-gray-500">
 							<NoPhotographyOutlinedIcon fontSize="large" />
 							<span className="mt-2 text-sm">No Poster</span>
 						</div>
