@@ -9,9 +9,9 @@ const Home = async ({ searchParams }: { searchParams: SearchParams }) => {
 	const query = params.query || "";
 	let trendingMovies: Movie[] = [];
 	const endpoint = query
-		? `${process.env.NEXT_PUBLIC_API_URL}/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&query=${query}`
-		: // ? `${process.env.NEXT_PUBLIC_API_URL}/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&query=${name}&page=${pageNumber}&include_adult=false`
-			`${process.env.NEXT_PUBLIC_API_URL}/trending/movie/week?api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
+		? `${process.env.NEXT_PUBLIC_API_URL}/search/movie?api_key=${process.env.API_KEY}&language=en-US&query=${query}`
+		: // ? `${process.env.NEXT_PUBLIC_API_URL}/search/movie?api_key=${process.env.API_KEY}&language=en-US&query=${name}&page=${pageNumber}&include_adult=false`
+			`${process.env.NEXT_PUBLIC_API_URL}/trending/movie/week?api_key=${process.env.API_KEY}`;
 
 	try {
 		const res = await fetch(endpoint, { cache: "no-store" });
