@@ -39,7 +39,7 @@ pnpm install
 
 ```bash
 NEXT_PUBLIC_API_URL=https://api.themoviedb.org/3
-NEXT_PUBLIC_API_KEY=your_api_key
+API_KEY=your_api_key
 ```
 
 ### 4. Start the development server:
