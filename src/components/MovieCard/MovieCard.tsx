@@ -1,17 +1,31 @@
+"use client";
 import { Movie } from "@/types";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import NoPhotographyOutlinedIcon from "@mui/icons-material/NoPhotographyOutlined";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 
 interface MovieCardProps {
 	movies: Movie[];
 }
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movies }) => {
+	const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const handleOpenModal = (movie: Movie) => {
+		setSelectedMovie(movie);
+		setIsModalOpen(true);
+	};
+
+	const handleCloseModal = () => {
+		setSelectedMovie(null);
+		setIsModalOpen(false);
+	};
 	return (
 		<>
 			{movies.map((movie: Movie) => (
-				<div key={movie.id}>
+				<div key={movie.id} onClick={() => handleOpenModal(movie)} className="cursor-pointer">
 					{movie.poster_path ? (
 						<Image
 							src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
@@ -30,6 +44,23 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies }) => {
 					<p className="text-warning">{movie.release_date.split("-")[0]}</p>
 				</div>
 			))}
+
+			<Dialog open={isModalOpen} onClose={handleCloseModal}>
+				<DialogTitle>{selectedMovie?.title}</DialogTitle>
+				<DialogContent>
+					<p>
+						<strong>Release Date:</strong> {selectedMovie?.release_date}
+					</p>
+					<p>
+						<strong>Overview:</strong> {selectedMovie?.overview || "No description available."}
+					</p>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleCloseModal} color="primary">
+						Close
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</>
 	);
 };
