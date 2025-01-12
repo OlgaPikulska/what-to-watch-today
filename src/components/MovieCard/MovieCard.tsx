@@ -1,15 +1,15 @@
 "use client";
-import { Movie } from "@/types";
+import { Genre, Movie } from "@/types";
 import React, { useState } from "react";
-import Image from "next/image";
-import NoPhotographyOutlinedIcon from "@mui/icons-material/NoPhotographyOutlined";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Poster } from "@/components/Poster/Poster";
 
 interface MovieCardProps {
 	movies: Movie[];
+	genres: Genre[];
 }
 
-export const MovieCard: React.FC<MovieCardProps> = ({ movies }) => {
+export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 	const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,45 +22,51 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies }) => {
 		setSelectedMovie(null);
 		setIsModalOpen(false);
 	};
+
+	const mapGenreIdsToNames = (movieIds: number[]): string[] => {
+		return movieIds.map(
+			(movieId) => genres.find((genre) => genre.id === movieId)?.name || "Unknown genre",
+		);
+	};
+
 	return (
 		<>
 			{movies.map((movie: Movie) => (
 				<div key={movie.id} onClick={() => handleOpenModal(movie)} className="cursor-pointer">
-					{movie.poster_path ? (
-						<Image
-							src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-							alt={`Poster of ${movie.title} movie`}
-							className="rounded-sm"
-							width={200}
-							height={300}
-						/>
-					) : (
-						<div className="flex aspect-[200/300] w-full max-w-[200px] items-center justify-center rounded-sm border border-gray-500 text-gray-500">
-							<NoPhotographyOutlinedIcon fontSize="large" />
-							<span className="mt-2 text-sm">No Poster</span>
-						</div>
-					)}
+					<Poster poster_path={movie.poster_path} title={movie.title} />
 					<p className="text mt-2 text-sm font-bold uppercase">{movie.title}</p>
-					<p className="text-warning">{movie.release_date.split("-")[0]}</p>
+					<p className="text-xs text-warning">
+						{mapGenreIdsToNames(movie.genre_ids).join(", ")} |{" "}
+						<span>{movie.release_date.split("-")[0]}</span>
+					</p>
 				</div>
 			))}
 
-			<Dialog open={isModalOpen} onClose={handleCloseModal}>
-				<DialogTitle>{selectedMovie?.title}</DialogTitle>
-				<DialogContent>
-					<p>
-						<strong>Release Date:</strong> {selectedMovie?.release_date}
-					</p>
-					<p>
-						<strong>Overview:</strong> {selectedMovie?.overview || "No description available."}
-					</p>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleCloseModal} color="primary">
-						Close
-					</Button>
-				</DialogActions>
-			</Dialog>
+			{selectedMovie && (
+				<Dialog open={isModalOpen} onClose={handleCloseModal}>
+					<DialogTitle>{selectedMovie.title}</DialogTitle>
+					<Poster poster_path={selectedMovie?.poster_path} title={selectedMovie.title} />
+					<DialogContent>
+						<p>
+							<strong>Rating:</strong> {selectedMovie?.vote_average} / 10
+						</p>
+						<p>
+							<strong>Genres:</strong> {mapGenreIdsToNames(selectedMovie?.genre_ids).join(", ")}
+						</p>
+						<p>
+							<strong>Release Date:</strong> {selectedMovie?.release_date}
+						</p>
+						<p>
+							<strong>Overview:</strong> {selectedMovie?.overview || "No description available."}
+						</p>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={handleCloseModal} color="primary">
+							Close
+						</Button>
+					</DialogActions>
+				</Dialog>
+			)}
 		</>
 	);
 };
