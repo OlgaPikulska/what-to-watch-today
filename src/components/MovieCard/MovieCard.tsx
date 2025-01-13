@@ -3,6 +3,7 @@ import { Genre, Movie } from "@/types";
 import React, { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { Poster } from "@/components/Poster/Poster";
+import { InfoRow } from "@/components/MovieCard/InfoRow";
 
 interface MovieCardProps {
 	movies: Movie[];
@@ -44,21 +45,20 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 
 			{selectedMovie && (
 				<Dialog open={isModalOpen} onClose={handleCloseModal}>
-					<DialogTitle>{selectedMovie.title}</DialogTitle>
-					<Poster poster_path={selectedMovie?.poster_path} title={selectedMovie.title} />
-					<DialogContent>
-						<p>
-							<strong>Rating:</strong> {selectedMovie?.vote_average} / 10
-						</p>
-						<p>
-							<strong>Genres:</strong> {mapGenreIdsToNames(selectedMovie?.genre_ids).join(", ")}
-						</p>
-						<p>
-							<strong>Release Date:</strong> {selectedMovie?.release_date}
-						</p>
-						<p>
-							<strong>Overview:</strong> {selectedMovie?.overview || "No description available."}
-						</p>
+					<DialogTitle className="text-3xl">{selectedMovie.title}</DialogTitle>
+					<DialogContent className="flex gap-6">
+						<Poster poster_path={selectedMovie?.poster_path} title={selectedMovie.title} />
+						<div className="grid gap-0.5">
+							<InfoRow label="Rating:" value={`${selectedMovie?.vote_average} / 10`} />
+							<InfoRow
+								label="Genres:"
+								value={mapGenreIdsToNames(selectedMovie?.genre_ids).join(", ")}
+							/>
+							<InfoRow label="Release Date:" value={selectedMovie?.release_date} />
+
+							<strong>Overview:</strong>
+							<p> {selectedMovie?.overview || "No description available."}</p>
+						</div>
 					</DialogContent>
 					<DialogActions>
 						<Button onClick={handleCloseModal} color="primary">
