@@ -3,7 +3,7 @@ import { Genre, Movie } from "@/types";
 import React, { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { Poster } from "@/components/Poster/Poster";
-import { InfoRow } from "@/components/MovieCard/InfoRow";
+import { MovieDetails } from "@/components/MovieCard/MovieDetails";
 
 interface MovieCardProps {
 	movies: Movie[];
@@ -30,6 +30,15 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 		);
 	};
 
+	const movieDetails = [
+		{ label: "Rating:", value: `${selectedMovie?.vote_average} / 10` },
+		{
+			label: "Genres:",
+			value: selectedMovie && mapGenreIdsToNames(selectedMovie?.genre_ids).join(", "),
+		},
+		{ label: "Release Date:", value: selectedMovie?.release_date },
+	];
+
 	return (
 		<>
 			{movies.map((movie: Movie) => (
@@ -44,22 +53,32 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 			))}
 
 			{selectedMovie && (
-				<Dialog open={isModalOpen} onClose={handleCloseModal}>
+				<Dialog maxWidth="sm" open={isModalOpen} onClose={handleCloseModal}>
 					<DialogTitle className="text-3xl">{selectedMovie.title}</DialogTitle>
-					<DialogContent className="flex gap-6">
-						<Poster poster_path={selectedMovie?.poster_path} title={selectedMovie.title} />
-						<div className="grid gap-0.5">
-							<InfoRow label="Rating:" value={`${selectedMovie?.vote_average} / 10`} />
+					<DialogContent>
+						<div className="flex gap-6">
+							<Poster poster_path={selectedMovie?.poster_path} title={selectedMovie.title} />
+							<div className="flex gap-6">
+								<ul>
+									<li className="text-xs">Rating:</li>
+									<li>Genres:</li>
+								</ul>
+								<ul>
+									<li className="text-xs text-black">{selectedMovie?.vote_average} / 10</li>
+									<li>{mapGenreIdsToNames(selectedMovie?.genre_ids).join(", ")}</li>
+								</ul>
+								{/* <InfoRow label="Rating:" value={`${selectedMovie?.vote_average} / 10`} />
 							<InfoRow
 								label="Genres:"
 								value={mapGenreIdsToNames(selectedMovie?.genre_ids).join(", ")}
 							/>
-							<InfoRow label="Release Date:" value={selectedMovie?.release_date} />
-
-							<strong>Overview:</strong>
-							<p> {selectedMovie?.overview || "No description available."}</p>
+							<InfoRow label="Release Date:" value={selectedMovie?.release_date} /> */}
+							</div>
 						</div>
+						<strong>Overview:</strong>
+						<p> {selectedMovie?.overview || "No description available."}</p>
 					</DialogContent>
+
 					<DialogActions>
 						<Button onClick={handleCloseModal} color="primary">
 							Close
