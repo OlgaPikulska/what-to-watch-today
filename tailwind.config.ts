@@ -14,6 +14,7 @@ export default {
 				warning: "#f57c00",
 				footer: "#f7f7f7",
 				footertext: "#545454",
+				lightGrey: "#8c8c8c",
 			},
 			backgroundImage: {
 				"header-desktop": "url(/header/header-home-desktop.jpg)",

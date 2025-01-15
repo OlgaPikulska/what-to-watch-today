@@ -1,11 +1,24 @@
+import React from "react";
+
 type MovieDetailsProps = {
-	label: string;
-	value: React.ReactNode;
+	movieDetails: { label: string; value: React.ReactNode }[];
 };
 
-export const MovieDetails: React.FC<MovieDetailsProps> = ({ label, value }) => (
-	<div className="flex justify-between">
-		<strong className="font-semibold text-footertext">{label}</strong>
-		<span className="">{value}</span>
+export const MovieDetails: React.FC<MovieDetailsProps> = ({ movieDetails }) => (
+	<div className="flex gap-10">
+		<ul>
+			{movieDetails.map((details, index) => (
+				<li key={`label-${index}`} className="text-lightGrey text-sm">
+					{details.label}
+				</li>
+			))}
+		</ul>
+		<ul>
+			{movieDetails.map((details, index) => (
+				<li key={`value-${index}`} className="text-sm">
+					<strong>{details.value}</strong>
+				</li>
+			))}
+		</ul>
 	</div>
 );
