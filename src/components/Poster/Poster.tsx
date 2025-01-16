@@ -12,7 +12,7 @@ export const Poster = ({ poster_path, title }: Poster) => {
 				<Image
 					src={`https://image.tmdb.org/t/p/w200${poster_path}`}
 					alt={`Poster of ${title} movie`}
-					className="rounded-sm"
+					className="h-[300px] w-[200px] rounded-sm"
 					width={200}
 					height={300}
 				/>

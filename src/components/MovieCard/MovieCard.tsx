@@ -44,9 +44,14 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 			))}
 
 			{selectedMovie && (
-				<Dialog maxWidth="sm" open={isModalOpen} onClose={handleCloseModal}>
+				<Dialog
+					maxWidth="sm"
+					open={isModalOpen}
+					onClose={handleCloseModal}
+					className="overflow-y-clip"
+				>
 					<DialogTitle className="text-3xl">{selectedMovie.title}</DialogTitle>
-					<DialogContent className="flex gap-6">
+					<DialogContent className="flex flex-col items-center justify-center gap-6 overflow-y-clip sm:flex-row">
 						<Poster poster_path={selectedMovie?.poster_path} title={selectedMovie.title} />
 						<div>
 							<MovieDetails
