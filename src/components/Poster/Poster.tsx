@@ -17,7 +17,7 @@ export const Poster = ({ poster_path, title }: Poster) => {
 					height={300}
 				/>
 			) : (
-				<div className="flex aspect-[200/300] w-full max-w-[200px] items-center justify-center rounded-sm border border-gray-500 text-gray-500">
+				<div className="flex h-[300px] w-[200px] items-center justify-center rounded-sm border border-gray-500 text-gray-500">
 					<NoPhotographyOutlinedIcon fontSize="large" />
 					<span className="mt-2 text-sm">No Poster</span>
 				</div>
