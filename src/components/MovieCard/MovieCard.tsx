@@ -1,7 +1,16 @@
 "use client";
 import { Genre, Movie } from "@/types";
 import React, { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+	Tooltip,
+	useMediaQuery,
+	useTheme,
+} from "@mui/material";
 import { Poster } from "@/components/Poster/Poster";
 import { MovieDetails } from "@/components/MovieCard/MovieDetails";
 
@@ -13,6 +22,9 @@ interface MovieCardProps {
 export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 	const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const theme = useTheme();
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+	console.log(isSmallScreen);
 
 	const handleOpenModal = (movie: Movie) => {
 		setSelectedMovie(movie);
@@ -33,9 +45,17 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 	return (
 		<>
 			{movies.map((movie: Movie) => (
-				<div key={movie.id} onClick={() => handleOpenModal(movie)} className="cursor-pointer">
-					<Poster poster_path={movie.poster_path} title={movie.title} />
-					<p className="text mt-2 text-sm font-bold uppercase">{movie.title}</p>
+				<div key={movie.id}>
+					<Tooltip title="Click to see more details" arrow>
+						<button
+							onClick={() => handleOpenModal(movie)}
+							className="cursor-pointer"
+							aria-label={`Click to see more details of movie: ${movie.title}`}
+						>
+							<Poster poster_path={movie.poster_path} title={movie.title} />
+						</button>
+					</Tooltip>
+					<h2 className="text text-sm font-bold uppercase">{movie.title}</h2>
 					<p className="text-xs text-warning">
 						{mapGenreIdsToNames(movie.genre_ids).join(", ")} |{" "}
 						<span>{movie.release_date.split("-")[0]}</span>
@@ -48,10 +68,10 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 					maxWidth="sm"
 					open={isModalOpen}
 					onClose={handleCloseModal}
-					className="overflow-y-clip"
+					fullScreen={isSmallScreen}
 				>
 					<DialogTitle className="text-3xl">{selectedMovie.title}</DialogTitle>
-					<DialogContent className="flex flex-col items-center justify-center gap-6 overflow-y-clip sm:flex-row">
+					<DialogContent className="flex flex-col items-center gap-6 sm:flex-row">
 						<Poster poster_path={selectedMovie?.poster_path} title={selectedMovie.title} />
 						<div>
 							<MovieDetails
@@ -69,7 +89,6 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 							<p> {selectedMovie?.overview || "No description available."}</p>
 						</div>
 					</DialogContent>
-
 					<DialogActions>
 						<Button onClick={handleCloseModal} color="primary">
 							Close
