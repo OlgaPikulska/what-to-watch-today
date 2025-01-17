@@ -1,6 +1,13 @@
 import { MovieCard } from "@/components/MovieCard/MovieCard";
-import { Movie } from "@/types";
-// import { useSearchParams } from "next/navigation";
+import { Genre, Movie } from "@/types";
+
+const fetchGenres = async (): Promise<Genre[]> => {
+	const res = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/genre/movie/list?api_key=${process.env.API_KEY}&language=en`,
+	);
+	const data = await res.json();
+	return data.genres || [];
+};
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -21,10 +28,11 @@ const Home = async ({ searchParams }: { searchParams: SearchParams }) => {
 	} catch (error) {
 		console.error("Error fetching movies:", error);
 	}
+	const genres = await fetchGenres();
 
 	return (
 		<div className="grid auto-cols-[200px] grid-cols-[repeat(auto-fill,_200px)] justify-center gap-4 p-4">
-			<MovieCard movies={trendingMovies} />
+			<MovieCard movies={trendingMovies} genres={genres} />
 		</div>
 	);
 };
