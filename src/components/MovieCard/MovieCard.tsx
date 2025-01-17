@@ -1,18 +1,9 @@
 "use client";
 import { Genre, Movie } from "@/types";
 import React, { useState } from "react";
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	Tooltip,
-	useMediaQuery,
-	useTheme,
-} from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { Poster } from "@/components/Poster/Poster";
-import { MovieDetails } from "@/components/MovieCard/MovieDetails";
+import MovieDetailsDialog from "@/components/MovieDetailsDialog/MovieDetailsDialog";
 
 interface MovieCardProps {
 	movies: Movie[];
@@ -22,9 +13,6 @@ interface MovieCardProps {
 export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 	const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const theme = useTheme();
-	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-	console.log(isSmallScreen);
 
 	const handleOpenModal = (movie: Movie) => {
 		setSelectedMovie(movie);
@@ -36,17 +24,17 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 		setIsModalOpen(false);
 	};
 
-	const mapGenreIdsToNames = (movieIds: number[]): string[] => {
-		return movieIds.map(
-			(movieId) => genres.find((genre) => genre.id === movieId)?.name || "Unknown genre",
-		);
+	const mapGenreIdsToNames = (movieIds: number[]): string => {
+		return movieIds
+			.map((movieId) => genres.find((genre) => genre.id === movieId)?.name || "Unknown genre")
+			.join(", ");
 	};
 
 	return (
 		<>
 			{movies.map((movie: Movie) => (
 				<div key={movie.id}>
-					<Tooltip title="Click to see more details" arrow>
+					<Tooltip title="Click to see more details" arrow placement="top-end">
 						<button
 							onClick={() => handleOpenModal(movie)}
 							className="cursor-pointer"
@@ -55,46 +43,27 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 							<Poster poster_path={movie.poster_path} title={movie.title} />
 						</button>
 					</Tooltip>
-					<h2 className="text text-sm font-bold uppercase">{movie.title}</h2>
-					<p className="text-xs text-warning">
-						{mapGenreIdsToNames(movie.genre_ids).join(", ")} |{" "}
-						<span>{movie.release_date.split("-")[0]}</span>
-					</p>
+					<Typography variant="subtitle2" className="uppercase">
+						{movie.title}
+					</Typography>
+					<Typography variant="caption" color="primary.main">
+						{mapGenreIdsToNames(movie.genre_ids)} | <span>{movie.release_date.split("-")[0]}</span>
+					</Typography>
 				</div>
 			))}
 
 			{selectedMovie && (
-				<Dialog
-					maxWidth="sm"
+				<MovieDetailsDialog
+					title={selectedMovie.title}
+					poster_path={selectedMovie.poster_path}
+					vote_average={selectedMovie.vote_average}
+					popularity={selectedMovie.popularity}
+					release_date={selectedMovie.release_date}
+					overview={selectedMovie.overview}
 					open={isModalOpen}
 					onClose={handleCloseModal}
-					fullScreen={isSmallScreen}
-				>
-					<DialogTitle className="text-3xl">{selectedMovie.title}</DialogTitle>
-					<DialogContent className="flex flex-col items-center gap-6 sm:flex-row">
-						<Poster poster_path={selectedMovie?.poster_path} title={selectedMovie.title} />
-						<div>
-							<MovieDetails
-								movieDetails={[
-									{ label: "Vote / Votes:", value: `${selectedMovie.vote_average} / 10` },
-									{ label: "Popularity:", value: `${selectedMovie.popularity}` },
-									{
-										label: "Genres:",
-										value: selectedMovie && mapGenreIdsToNames(selectedMovie.genre_ids).join(", "),
-									},
-									{ label: "Release Date:", value: selectedMovie.release_date },
-								]}
-							/>
-							<strong className="mt-5 block uppercase">Overview</strong>
-							<p> {selectedMovie?.overview || "No description available."}</p>
-						</div>
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={handleCloseModal} color="primary">
-							Close
-						</Button>
-					</DialogActions>
-				</Dialog>
+					genres={mapGenreIdsToNames(selectedMovie.genre_ids)}
+				/>
 			)}
 		</>
 	);
