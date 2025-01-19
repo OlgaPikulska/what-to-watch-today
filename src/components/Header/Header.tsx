@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
 	return (
 		<header className="bg-gray-800 bg-header-mobile bg-cover bg-center sm:bg-header-tablet lg:bg-header-desktop">
 			<div className="container flex flex-col gap-5 py-[70px]">
-				<div className="flex justify-between text-white">
+				<div className="flex items-center justify-between text-white">
 					<Logo />
 					<Navigation />
 				</div>
