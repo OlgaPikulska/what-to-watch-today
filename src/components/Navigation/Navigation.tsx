@@ -3,28 +3,28 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Typography from "@mui/material/Typography/Typography";
 
 export const Navigation: React.FC = () => {
 	const pathname = usePathname();
 
 	return (
-		// <nav className="flex space-x-6">
 		<nav className="block">
 			<Link
 				href="/"
 				className={`${
 					pathname === "/" ? "border-b-[3px] border-warning font-bold" : ""
-				} mr-6 inline-block text-xs uppercase text-white hover:text-gray-300`}
+				} mr-6 inline-block uppercase hover:text-warning`}
 			>
-				Home
+				<Typography variant="body1">Home</Typography>
 			</Link>
 			<Link
 				href="/library"
 				className={`${
 					pathname === "/library" ? "border-b-[3px] border-warning font-bold" : ""
-				} inline-block text-xs uppercase text-white hover:text-gray-300`}
+				} inline-block uppercase hover:text-warning`}
 			>
-				My library
+				<Typography variant="body1">My library</Typography>
 			</Link>
 		</nav>
 	);
