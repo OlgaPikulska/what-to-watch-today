@@ -1,12 +1,11 @@
 "use client";
 import { MovieCard } from "@/components/MovieCard/MovieCard";
-import Pagination from "@/components/paginationButtons/paginationButtons";
 import { Genre } from "@/types";
-import { Typography } from "@mui/material";
+import { Typography, Pagination } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -28,8 +27,8 @@ const MoviesPagination = ({ genres }: MoviesPaginationProps) => {
 	const movies = data?.results || [];
 	const totalPages = data?.total_pages || 1;
 
-	const handlePageChange = (newPage: number) => {
-		setPage(newPage);
+	const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
+		setPage(value);
 	};
 
 	if (error) {
@@ -57,7 +56,11 @@ const MoviesPagination = ({ genres }: MoviesPaginationProps) => {
 			<div className="grid auto-cols-[200px] grid-cols-[repeat(auto-fill,_200px)] justify-center gap-4 p-4">
 				<MovieCard movies={movies} genres={genres} />
 			</div>
-			<Pagination totalPages={totalPages} currentPage={page} onPageChange={handlePageChange} />
+			{query && (
+				<Box sx={{ display: "flex", justifyContent: "center", marginY: "15px" }}>
+					<Pagination count={totalPages} color="primary" page={page} onChange={handlePageChange} />
+				</Box>
+			)}
 		</>
 	);
 };
