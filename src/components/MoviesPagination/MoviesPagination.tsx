@@ -4,8 +4,8 @@ import { Genre } from "@/types";
 import { Typography, Pagination } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
-import { useSearchParams } from "next/navigation";
-import React, { ChangeEvent, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -16,8 +16,14 @@ interface MoviesPaginationProps {
 
 const MoviesPagination = ({ genres }: MoviesPaginationProps) => {
 	const searchParams = useSearchParams();
+	const router = useRouter();
 	const [page, setPage] = useState(1);
 	const query = searchParams.get("query") || "";
+	const currentPage = Number(searchParams.get("page")) || 1;
+
+	useEffect(() => {
+		setPage(currentPage);
+	}, [currentPage]);
 
 	const { data, error, isLoading } = useSWR(
 		query ? `/api/movies?query=${query}&page=${page}` : "/api/movies",
@@ -29,6 +35,7 @@ const MoviesPagination = ({ genres }: MoviesPaginationProps) => {
 
 	const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
 		setPage(value);
+		router.push(`/?query=${query}&page=${value}`);
 	};
 
 	if (error) {

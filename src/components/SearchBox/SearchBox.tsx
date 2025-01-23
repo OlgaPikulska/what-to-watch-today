@@ -14,7 +14,7 @@ export const SearchBox: React.FC = () => {
 		setSearchQuery(query);
 
 		if (query.trim() !== "") {
-			router.push(`/?query=${query.trim()}`);
+			router.push(`/?query=${query.trim()}&page=1`);
 		} else {
 			router.push(`/`);
 		}
