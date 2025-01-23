@@ -44,10 +44,11 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 						</button>
 					</Tooltip>
 					<Typography variant="subtitle2" className="uppercase">
-						{movie.title}
+						{movie.title || "-"}
 					</Typography>
 					<Typography variant="caption" color="primary.main">
-						{mapGenreIdsToNames(movie.genre_ids)} | <span>{movie.release_date.split("-")[0]}</span>
+						{movie.genre_ids.length !== 0 ? mapGenreIdsToNames(movie.genre_ids) : "-"} |{" "}
+						<span>{movie.release_date.split("-")[0]}</span>
 					</Typography>
 				</div>
 			))}

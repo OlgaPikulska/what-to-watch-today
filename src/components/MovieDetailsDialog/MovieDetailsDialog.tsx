@@ -42,13 +42,13 @@ const MovieDetailsDialog = ({
 				<div>
 					<MovieDetails
 						movieDetails={[
-							{ label: "Vote / Votes:", value: `${vote_average} / 10` },
-							{ label: "Popularity:", value: `${popularity}` },
+							{ label: "Vote / Votes:", value: `${vote_average} / 10` || "-" },
+							{ label: "Popularity:", value: `${popularity}` || "-" },
 							{
 								label: "Genres:",
-								value: genres,
+								value: genres || "-",
 							},
-							{ label: "Release Date:", value: release_date },
+							{ label: "Release Date:", value: release_date || "-" },
 						]}
 					/>
 					<Typography variant="subtitle2" className="uppercase" sx={{ mt: 4, fontWeight: 700 }}>
