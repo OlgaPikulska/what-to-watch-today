@@ -1,5 +1,6 @@
 "use client";
 import { MovieCard } from "@/components/MovieCard/MovieCard";
+import { NothingFound } from "@/components/NothingFound/NothingFound";
 import { Genre } from "@/types";
 import { Typography, Pagination } from "@mui/material";
 import Box from "@mui/material/Box/Box";
@@ -58,6 +59,8 @@ const MoviesPagination = ({ genres }: MoviesPaginationProps) => {
 		>
 			<CircularProgress color="primary" />
 		</Box>
+	) : movies.length === 0 ? (
+		<NothingFound />
 	) : (
 		<>
 			<div className="grid auto-cols-[200px] grid-cols-[repeat(auto-fill,_200px)] justify-center gap-4 p-4">
