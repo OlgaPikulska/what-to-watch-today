@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo Component should match the snapshot 1`] = `
+<div>
+  <a
+    href="/"
+  >
+    <img
+      alt="What to watch today logo"
+      data-nimg="1"
+      decoding="async"
+      height="100"
+      loading="lazy"
+      src="/_next/image?url=%2Fheader%2Flogo_what_to_watch_today.jpg&w=256&q=75"
+      srcset="/_next/image?url=%2Fheader%2Flogo_what_to_watch_today.jpg&w=128&q=75 1x, /_next/image?url=%2Fheader%2Flogo_what_to_watch_today.jpg&w=256&q=75 2x"
+      style="color: transparent;"
+      width="100"
+    />
+  </a>
+</div>
+`;
