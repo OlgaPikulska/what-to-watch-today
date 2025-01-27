@@ -16,7 +16,6 @@
 		"jsx": "preserve",
 		"baseUrl": "./",
 		"incremental": true,
-		// "types": ["jest", "@testing-library/jest-dom"],
 		"allowSyntheticDefaultImports": true,
 		"plugins": [
 			{
