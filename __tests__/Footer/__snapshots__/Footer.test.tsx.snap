@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Component should match the snapshot 1`] = `
+<div>
+  <footer
+    class="bg-footer p-4 text-center"
+  >
+    <h6
+      class="MuiTypography-root MuiTypography-subtitle1 css-1i9ek8c-MuiTypography-root"
+    >
+      © 2025 | All Rights Reserved | Created by
+       
+      <span
+        class="font-bold"
+      >
+        Olga Pikulska
+      </span>
+    </h6>
+  </footer>
+</div>
+`;

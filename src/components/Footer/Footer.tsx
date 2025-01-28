@@ -1,7 +1,7 @@
-import Typography from "@mui/material/Typography/Typography";
-import React from "react";
+import { Typography } from "@mui/material";
+import { FC } from "react";
 
-export const Footer: React.FC = () => {
+export const Footer: FC = () => {
 	const currentYear: number = new Date().getFullYear();
 	return (
 		<footer className="bg-footer p-4 text-center">

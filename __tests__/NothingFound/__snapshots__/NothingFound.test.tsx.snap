@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NothingFound Component should match the snapshot 1`] = `
+<div>
+  <div
+    class="MuiBox-root css-1ntkkrs"
+  >
+    <h6
+      class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-1wmifpn-MuiTypography-root"
+    >
+      No movies matching your query were found.
+    </h6>
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-9ebprp-MuiTypography-root"
+    >
+      Please go back to the homepage or try a different search.
+    </p>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButton-colorPrimary css-152anmu-MuiButtonBase-root-MuiButton-root"
+      id=":r0:"
+      tabindex="0"
+      type="button"
+    >
+      Back to Homepage
+    </button>
+  </div>
+</div>
+`;
