@@ -24,9 +24,9 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movies, genres }) => {
 		setIsModalOpen(false);
 	};
 
-	const mapGenreIdsToNames = (movieIds: number[]): string => {
-		return movieIds
-			.map((movieId) => genres.find((genre) => genre.id === movieId)?.name || "Unknown genre")
+	const mapGenreIdsToNames = (genreIds: number[]): string => {
+		return genreIds
+			.map((genreId) => genres.find((genre) => genre.id === genreId)?.name || "Unknown genre")
 			.join(", ");
 	};
 

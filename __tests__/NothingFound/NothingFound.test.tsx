@@ -35,7 +35,7 @@ describe("NothingFound Component", () => {
 		expect(button).toBeInTheDocument();
 	});
 
-	it("redirects to the homepage when button is clicked", async () => {
+	it("should redirect to the homepage when button is clicked", async () => {
 		const { getByRole } = render(<NothingFound />);
 		const button = getByRole("button", { name: "Back to Homepage" });
 
